@@ -1,0 +1,39 @@
+package com.student.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.student.entity.Student;
+import com.student.service.StudentService;
+
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+
+	@Autowired
+	StudentService studentService;
+
+	public ResponseEntity<String> createStudent(@RequestBody Student student) {
+		String response = studentService.saveStudentData(student);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@GetMapping("/get/student")
+	public ResponseEntity<Student> getStudentDetails() {
+		Student response = studentService.getStudentData();
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@GetMapping("/get/all/student")
+	public ResponseEntity<List<Student>> getAllStudentDetails() {
+		List<Student> response = studentService.getAllStudentData();
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+}

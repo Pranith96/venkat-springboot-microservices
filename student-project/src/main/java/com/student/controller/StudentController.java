@@ -3,7 +3,12 @@ package com.student.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,15 +22,21 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 
-	@GetMapping("/get/student")
-	public Student getStudentDetails() {
-		Student response = studentService.getStudentData();
-		return response;
+	@PostMapping("/save")
+	public ResponseEntity<String> createStudent(@RequestBody Student student) {
+		String response = studentService.saveStudentData(student);
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+
+	@GetMapping("/get/student/{studentId}")
+	public ResponseEntity<Student> getStudentDetails(@PathVariable("studentId") Integer studentId) {
+		Student response = studentService.getStudentData(studentId);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 	@GetMapping("/get/all/student")
-	public List<Student> getAllStudentDetails() {
+	public ResponseEntity<List<Student>> getAllStudentDetails() {
 		List<Student> response = studentService.getAllStudentData();
-		return response;
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }

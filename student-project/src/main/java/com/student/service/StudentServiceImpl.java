@@ -1,46 +1,43 @@
 package com.student.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.student.entity.Student;
+import com.student.repository.StudentRepository;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
-	public Student getStudentData() {
+	@Autowired
+	StudentRepository studentRepository;
 
-		Student student = new Student();
-		student.setStudentId(1);
-		student.setStudentName("XYZ");
-		student.setEmail("sdfg@gmail.com");
-		student.setMobileNumber("1234567890");
-		student.setLoginId("123123");
-		student.setPassword("12345678");
-
-		return student;
+	public Student getStudentData(Integer studentId) {
+		Optional<Student> response = studentRepository.findById(studentId);
+		if (!response.isPresent()) {
+			throw new RuntimeException("Data not exists");
+		}
+		return response.get();
 	}
 
 	@Override
 	public List<Student> getAllStudentData() {
-
-		List<Student> students = new ArrayList<>();
-
-		Student student = new Student();
-		student.setStudentId(2);
-		student.setStudentName("ABC");
-		student.setEmail("shsg@gmail.com");
-		student.setMobileNumber("1234567890");
-		student.setLoginId("12312378");
-		student.setPassword("12345678");
-
-		students.add(getStudentData());
-		students.add(student);
-		students.add(getStudentData());
-
-		return students;
+		List<Student> response = studentRepository.findAll();
+		if (response == null || response.isEmpty()) {
+			throw new RuntimeException("data is empty");
+		}
+		return response;
 	}
 
+	@Override
+	public String saveStudentData(Student student) {
+		Student response = studentRepository.save(student);
+		if (response == null) {
+			return "Data not saved";
+		}
+		return "Data saved successfully";
+	}
 }
