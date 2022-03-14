@@ -21,7 +21,7 @@ public class StudentServiceImpl implements StudentService {
 		if (!response.isPresent()) {
 			throw new RuntimeException("Data not exists");
 		}
-		
+
 		StudentDto dto = new StudentDto();
 		dto.setEmail(response.get().getEmail());
 		dto.setMobileNumber(response.get().getMobileNumber());
@@ -64,5 +64,29 @@ public class StudentServiceImpl implements StudentService {
 			throw new RuntimeException("Data not exists");
 		}
 		return response.get();
+	}
+
+	@Override
+	public StudentDto getStudentDataByloginId(String loginId) {
+		Optional<Student> response = studentRepository.getDetailsByLoginId(loginId);
+		if (!response.isPresent()) {
+			throw new RuntimeException("Data not exists");
+		}
+
+		StudentDto dto = new StudentDto();
+		dto.setEmail(response.get().getEmail());
+		dto.setMobileNumber(response.get().getMobileNumber());
+		dto.setStudentName(response.get().getStudentName());
+		return dto;
+	}
+
+	@Override
+	public String deleteStudentData(Integer studentId) {
+		Optional<Student> response = studentRepository.findById(studentId);
+		if (!response.isPresent()) {
+			throw new RuntimeException("Data not exists");
+		}
+		studentRepository.deleteById(studentId);
+		return "deleted successfully";
 	}
 }
