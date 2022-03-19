@@ -21,4 +21,8 @@ public interface StudentService {
 
 	String deleteStudentData(Integer studentId);
 
+	String updateStudentData(Student student);
+
+	String updateStudentName(String studentName, Integer studentId);
+
 }
