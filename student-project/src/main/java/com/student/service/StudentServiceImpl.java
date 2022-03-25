@@ -44,6 +44,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public String saveStudentData(Student student) {
+		student.getAddress().setStudent(student);
 		Student response = studentRepository.save(student);
 		if (response == null) {
 			return "Data not saved";
