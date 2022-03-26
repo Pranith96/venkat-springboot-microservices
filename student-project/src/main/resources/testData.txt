@@ -1,0 +1,27 @@
+{
+  "address": {
+    "city": "hyd",
+    "locality": "fgh",
+    "state": "fghj"
+  },
+  "college": {
+    "collegeCode": "PQR45",
+    "collegeName": "WERWER"
+  },
+  "courses": [
+    {
+      "courseName": "JAVA"
+    },
+{
+      "courseName": "SPRIING"
+    },
+{
+      "courseName": "JPA"
+    }
+  ],
+  "email": "hjk@gmail.com",
+  "loginId": "967967",
+  "mobileNumber": "1234567890",
+  "password": "12345678",
+  "studentName": "Harish"
+}

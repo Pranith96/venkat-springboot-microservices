@@ -20,6 +20,8 @@ import com.student.dto.StudentDto;
 import com.student.entity.Student;
 import com.student.service.StudentService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -28,6 +30,9 @@ public class StudentController {
 	StudentService studentService;
 
 	@PostMapping("/save")
+	 @ApiOperation(value = "Student account Creation API",
+     notes = "Please provide all the info for Student account creation",
+     response = Student.class)
 	public ResponseEntity<String> createStudent(@RequestBody Student student) {
 		String response = studentService.saveStudentData(student);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -40,6 +45,9 @@ public class StudentController {
 	}
 
 	@GetMapping("/get/all/student")
+	@ApiOperation(value = "Get Student Details API",
+    notes = "Please provide Details to get student account",
+    response = Student.class)
 	public ResponseEntity<List<Student>> getAllStudentDetails() {
 		List<Student> response = studentService.getAllStudentData();
 		return ResponseEntity.status(HttpStatus.OK).body(response);
