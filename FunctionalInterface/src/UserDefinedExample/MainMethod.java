@@ -9,6 +9,8 @@ public class MainMethod {
 			int length = s.length();
 			System.out.println(length);
 		};
+		Greetings.hello();
 		greet.hi("Hello");
+		greet.welcome();
 	}
 }
